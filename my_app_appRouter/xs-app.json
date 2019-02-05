@@ -1,0 +1,13 @@
+{
+  "authenticationMethod": "route",
+  "routes": [{
+  	"source": "/odata/v4/(.*)",
+  	"destination": "srv_api",
+  	"authenticationType": "xsuaa"
+  },
+  {
+  	"source": "/node(.*)",
+  	"destination": "srv_api",
+  	"authenticationType": "xsuaa"
+  }]
+}

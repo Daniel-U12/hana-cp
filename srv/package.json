@@ -1,0 +1,40 @@
+{
+  "dependencies": {
+  	"@sap/cds": ">=2.8",
+	"express": "^4.16.2",
+	"@sap/xssec": "^2.1.12",
+	"@sap/xsenv": "^1.2.9",
+	"hdb": "^0.16.0",
+	"@sap/hdbext": "4.7.5",
+	"@sap/hana-client": "~2.3",
+	"@sap/logging": "~4.0",
+	"@sap/audit-logging": "2.2.4",
+	"passport": "~0.4.0",
+	"async": "latest"
+
+  },
+  "description": "my description",
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "jest-junit": "^5.2.0"
+  },
+  "files": [],
+  "main": "server.js",
+  "name": "srv",
+  "scripts": {
+    "test": "jest --config jest.json",
+    "test-coverage": "jest --coverage --config jest.json",
+    "start": "node server.js",
+    "postinstall": "cds build/all --project .. --clean"
+  },
+  "engines": {
+    "node": "8.x",
+    "npm": "6.x"
+  },
+  "cds": {
+	"data":{
+		"driver": "hana"
+	}
+  },
+  "version": "1.0.0"
+}

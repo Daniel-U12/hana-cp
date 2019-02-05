@@ -1,0 +1,102 @@
+{
+  "definitions": {
+    "CatalogService": {
+      "kind": "service",
+      "@source": "srv/my-service.cds"
+    },
+    "CatalogService.User": {
+      "kind": "entity",
+      "@Capabilities.InsertRestrictions.Insertable": true,
+      "@Capabilities.UpdateRestrictions.Updatable": true,
+      "@Capabilities.DeleteRestrictions.Deletable": true,
+      "source": "USER_DETAILS",
+      "elements": {
+        "EMAIL": {
+          "origin": "USER_DETAILS..EMAIL",
+          "indexNo": 1,
+          "value": {
+            "=": "UserDetails.EMAIL"
+          },
+          "type": "cds.String",
+          "length": 255,
+          "@Common.Label": "Email Address",
+          "@cds.persistence.name": "EMAIL"
+        },
+        "FIRSTNAME": {
+          "origin": "USER_DETAILS..FIRSTNAME",
+          "indexNo": 2,
+          "value": {
+            "=": "UserDetails.FIRSTNAME"
+          },
+          "type": "cds.String",
+          "length": 40,
+          "@Common.Label": "Given Name",
+          "@cds.persistence.name": "FIRSTNAME"
+        },
+        "LASTNAME": {
+          "origin": "USER_DETAILS..LASTNAME",
+          "indexNo": 3,
+          "value": {
+            "=": "UserDetails.LASTNAME"
+          },
+          "type": "cds.String",
+          "length": 40,
+          "@Common.Label": "Family Name",
+          "@cds.persistence.name": "LASTNAME"
+        },
+        "USERID": {
+          "origin": "USER_DETAILS..USERID",
+          "indexNo": 4,
+          "value": {
+            "=": "UserDetails.USERID"
+          },
+          "key": true,
+          "type": "cds.Integer",
+          "@Common.Label": "User Id",
+          "@cds.persistence.name": "USERID"
+        }
+      },
+      "@Common.Label": "UserService",
+      "@cds.persistence.name": "CATALOGSERVICE_USER"
+    },
+    "USER_DETAILS": {
+      "kind": "entity",
+      "elements": {
+        "EMAIL": {
+          "indexNo": 1,
+          "type": "cds.String",
+          "length": 255,
+          "@Common.Label": "Email Address",
+          "@cds.persistence.name": "EMAIL"
+        },
+        "FIRSTNAME": {
+          "indexNo": 2,
+          "type": "cds.String",
+          "length": 40,
+          "@Common.Label": "Given Name",
+          "@cds.persistence.name": "FIRSTNAME"
+        },
+        "LASTNAME": {
+          "indexNo": 3,
+          "type": "cds.String",
+          "length": 40,
+          "@Common.Label": "Family Name",
+          "@cds.persistence.name": "LASTNAME"
+        },
+        "USERID": {
+          "key": true,
+          "indexNo": 4,
+          "type": "cds.Integer",
+          "@Common.Label": "User Id",
+          "@cds.persistence.name": "USERID"
+        }
+      },
+      "@cds.persistence.name": "USER_DETAILS"
+    }
+  },
+  "version": {
+    "creator": "CDS Compiler v1.1.3",
+    "csn": "0.1.0"
+  },
+  "@sql_mapping": "plain"
+}

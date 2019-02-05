@@ -1,0 +1,90 @@
+ID: my_app
+_schema-version: '2.1'
+parameters:
+  deploy_mode: html5-repo
+version: 0.0.1
+modules:
+  - name: my_app_appRouter
+    type: approuter.nodejs
+    path: my_app_appRouter
+    parameters:
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: rt_my_app_appRouter
+      - name: uaa_my_app
+      - name: srv_api
+        group: destinations
+        properties:
+          name: srv_api
+          url: '~{url}'
+          forwardAuthToken: true
+  - name: my_app_ui_deployer
+    type: com.sap.html5.application-content
+    path: my_app_ui_deployer
+    requires:
+      - name: dt_my_app_ui_deployer
+    build-parameters:
+      requires:
+        - name: web
+          artifacts:
+            - './*'
+          target-path: resources/web
+  - name: db
+    type: hdb
+    path: db
+    parameters:
+      memory: 256M
+      disk-quota: 256M
+    requires:
+      - name: my_app-hdi-container
+  - name: srv
+    type: nodejs
+    path: srv
+    provides:
+      - name: srv_api
+        properties:
+          url: '${default-url}'
+    properties:
+      UAA_SERVICE_NAME: uaa_my_app
+    requires:
+      - name: uaa_my_app
+      - name: my_app-hdi-container
+  - name: web
+    type: html5
+    path: web
+    build-parameters:
+      builder: grunt
+    requires:
+      - name: rt_my_app_appRouter
+      - name: my_app-hdi-container
+      - name: uaa_my_app
+
+  
+
+resources:
+  - name: rt_my_app_appRouter
+    parameters:
+      service-plan: app-runtime
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: dt_my_app_ui_deployer
+    parameters:
+      service-plan: app-host
+      service: html5-apps-repo
+    type: org.cloudfoundry.managed-service
+  - name: my_app-hdi-container
+    properties:
+      hdi-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container
+  - name: uaa_my_app
+    parameters:
+      path: ./xs-security.json
+      service-plan: application
+      service: xsuaa
+    type: org.cloudfoundry.managed-service
+  - name: dest_my_app
+    parameters:
+      service-plan: lite
+      service: destination
+    type: org.cloudfoundry.managed-service
