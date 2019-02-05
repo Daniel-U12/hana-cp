@@ -59,9 +59,6 @@ modules:
       - name: rt_my_app_appRouter
       - name: my_app-hdi-container
       - name: uaa_my_app
-
-  
-
 resources:
   - name: rt_my_app_appRouter
     parameters:
